@@ -1,13 +1,8 @@
 import "dotenv/config";
-import { PrismaLibSql } from "@prisma/adapter-libsql";
 import { PrismaClient } from "../generated/prisma/client.ts";
 import bcrypt from "bcrypt";
 
-const adapter = new PrismaLibSql({
-  url: process.env.DATABASE_URL ?? "file:./prisma/dev.db",
-});
-
-const prisma = new PrismaClient({ adapter });
+const prisma = new PrismaClient({});
 
 const SALT_ROUNDS = 10;
 

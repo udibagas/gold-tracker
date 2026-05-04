@@ -1,15 +1,7 @@
+import "dotenv/config";
 import { PrismaClient } from "../generated/prisma/client";
-import { PrismaLibSql } from "@prisma/adapter-libsql";
-import { createClient } from "@libsql/client";
-import dotenv from "dotenv";
 
-dotenv.config();
-
-const adapter = new PrismaLibSql({
-  url: process.env.DATABASE_URL || "file:./dev.db",
-});
-
-const prisma = new PrismaClient({ adapter });
+const prisma = new PrismaClient({});
 
 async function seedCategories() {
   console.log("Seeding gold categories...");
