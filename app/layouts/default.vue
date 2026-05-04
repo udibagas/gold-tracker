@@ -38,7 +38,7 @@
             class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
           >
             <LogOut :size="18" />
-            <span class="hidden sm:inline">Logout</span>
+            <span class="hidden sm:inline">Keluar</span>
           </button>
         </div>
       </div>
@@ -125,47 +125,47 @@ watch(
 // Menu items
 const menuItems = [
   {
-    label: "Dashboard",
+    label: "Dasbor",
     path: "/",
     icon: LayoutDashboard,
   },
   {
-    label: "Purchase",
+    label: "Pembelian",
     path: "/purchases",
     icon: ShoppingCart,
   },
   {
-    label: "Cleaning",
+    label: "Pembersihan",
     path: "/cleanings",
     icon: Sparkles,
   },
   {
-    label: "Repair",
+    label: "Perbaikan",
     path: "/repairs",
     icon: Wrench,
   },
   {
-    label: "Melting",
+    label: "Peleburan",
     path: "/meltings",
     icon: Flame,
   },
   {
-    label: "Report",
+    label: "Laporan",
     path: "/report",
     icon: FileText,
   },
   {
-    label: "Categories",
+    label: "Kategori",
     path: "/categories",
     icon: Tags,
   },
   {
-    label: "User Management",
+    label: "Manajemen Pengguna",
     path: "/users",
     icon: Users,
   },
   {
-    label: "Settings",
+    label: "Pengaturan",
     path: "/settings",
     icon: Settings,
   },

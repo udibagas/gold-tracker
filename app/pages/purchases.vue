@@ -3,14 +3,14 @@
     <!-- Page Header -->
     <div class="mb-6 flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-bold text-gray-900">Gold Purchases</h1>
-        <p class="text-gray-600 mt-1">Track and manage gold purchases</p>
+        <h1 class="text-2xl font-bold text-gray-900">Pembelian Emas</h1>
+        <p class="text-gray-600 mt-1">Lacak dan kelola pembelian emas</p>
       </div>
       <el-button type="primary" @click="openCreateModal">
         <template #icon>
           <ShoppingCart :size="18" />
         </template>
-        Add Purchase
+        Tambah Pembelian
       </el-button>
     </div>
 
@@ -25,7 +25,7 @@
       class="mb-4"
     >
       <el-button type="primary" size="small" @click="fetchPurchases">
-        Retry
+        Coba Lagi
       </el-button>
     </el-alert>
 
@@ -42,7 +42,7 @@
             <div class="text-2xl font-bold text-gray-900">
               {{ purchases.length }}
             </div>
-            <div class="text-sm text-gray-600">Total Purchases</div>
+            <div class="text-sm text-gray-600">Total Pembelian</div>
           </div>
         </div>
       </el-card>
@@ -58,7 +58,7 @@
             <div class="text-2xl font-bold text-gray-900">
               {{ totalRealWeight.toFixed(2) }}g
             </div>
-            <div class="text-sm text-gray-600">Total Real Weight</div>
+            <div class="text-sm text-gray-600">Total Berat Asli</div>
           </div>
         </div>
       </el-card>
@@ -74,7 +74,7 @@
             <div class="text-2xl font-bold text-gray-900">
               ${{ totalPurchasePrice.toFixed(2) }}
             </div>
-            <div class="text-sm text-gray-600">Total Purchase Price</div>
+            <div class="text-sm text-gray-600">Total Harga Pembelian</div>
           </div>
         </div>
       </el-card>
@@ -90,7 +90,7 @@
             <div class="text-2xl font-bold text-gray-900">
               {{ averageCarat.toFixed(1) }}K
             </div>
-            <div class="text-sm text-gray-600">Average Carat</div>
+            <div class="text-sm text-gray-600">Rata-rata Karat</div>
           </div>
         </div>
       </el-card>
@@ -100,7 +100,7 @@
     <el-card shadow="hover">
       <template #header>
         <div class="flex items-center justify-between">
-          <span class="font-semibold">All Purchases</span>
+          <span class="font-semibold">Semua Pembelian</span>
           <el-tag>{{ purchases.length }} Total</el-tag>
         </div>
       </template>
@@ -111,7 +111,7 @@
         style="width: 100%"
         stripe
       >
-        <el-table-column label="Category" min-width="150">
+        <el-table-column label="Kategori" min-width="150">
           <template #default="{ row }">
             <div class="flex items-center gap-2">
               <el-tag type="warning" size="small">{{
@@ -121,17 +121,17 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Receipt Wt." width="120" align="right">
+        <el-table-column label="Berat Kwitansi" width="120" align="right">
           <template #default="{ row }"> {{ row.receiptWeight }}g </template>
         </el-table-column>
 
-        <el-table-column label="Real Wt." width="120" align="right">
+        <el-table-column label="Berat Asli" width="120" align="right">
           <template #default="{ row }">
             <span class="font-semibold">{{ row.realWeight }}g</span>
           </template>
         </el-table-column>
 
-        <el-table-column label="Carat" width="100" align="center">
+        <el-table-column label="Karat" width="100" align="center">
           <template #default="{ row }">
             <el-tag :type="getCaratTagType(row.carat)" size="small">
               {{ row.carat }}K
@@ -139,13 +139,13 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Receipt Price" width="130" align="right">
+        <el-table-column label="Harga Kwitansi" width="130" align="right">
           <template #default="{ row }">
             ${{ row.recieptPrice.toFixed(2) }}
           </template>
         </el-table-column>
 
-        <el-table-column label="Purchase Price" width="140" align="right">
+        <el-table-column label="Harga Pembelian" width="140" align="right">
           <template #default="{ row }">
             <span class="font-semibold text-green-600">
               ${{ row.purchasePrice.toFixed(2) }}
@@ -153,7 +153,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="User" width="150">
+        <el-table-column label="Pengguna" width="150">
           <template #default="{ row }">
             <div class="flex items-center gap-2">
               <el-avatar
@@ -167,25 +167,20 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Date" width="150">
+        <el-table-column label="Tanggal" width="150">
           <template #default="{ row }">
             {{ formatDate(row.createdAt) }}
           </template>
         </el-table-column>
 
-        <el-table-column
-          label="Actions"
-          width="150"
-          align="center"
-          fixed="right"
-        >
+        <el-table-column label="Aksi" width="150" align="center" fixed="right">
           <template #default="{ row }">
             <el-button
               type="primary"
               size="small"
               circle
               @click="openEditModal(row)"
-              title="Edit"
+              title="Ubah"
             >
               <Edit2 :size="16" />
             </el-button>
@@ -194,7 +189,7 @@
               size="small"
               circle
               @click="confirmDelete(row)"
-              title="Delete"
+              title="Hapus"
             >
               <Trash2 :size="16" />
             </el-button>
@@ -206,7 +201,7 @@
     <!-- Create/Edit Dialog -->
     <el-dialog
       v-model="showModal"
-      :title="isEditMode ? 'Edit Purchase' : 'Create Purchase'"
+      :title="isEditMode ? 'Ubah Pembelian' : 'Buat Pembelian'"
       width="600px"
       :close-on-click-modal="false"
     >
@@ -221,10 +216,10 @@
       />
 
       <el-form :model="form" label-width="140px" label-position="left">
-        <el-form-item label="Category" required>
+        <el-form-item label="Kategori" required>
           <el-select
             v-model="form.categoryId"
-            placeholder="Select category"
+            placeholder="Pilih kategori"
             style="width: 100%"
             filterable
           >
@@ -237,10 +232,10 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="User" required>
+        <el-form-item label="Pengguna" required>
           <el-select
             v-model="form.userId"
-            placeholder="Select user"
+            placeholder="Pilih pengguna"
             style="width: 100%"
             filterable
           >
@@ -255,7 +250,7 @@
 
         <el-divider />
 
-        <el-form-item label="Receipt Weight (g)" required>
+        <el-form-item label="Berat Kwitansi (g)" required>
           <el-input-number
             v-model="form.receiptWeight"
             :min="0"
@@ -265,7 +260,7 @@
           />
         </el-form-item>
 
-        <el-form-item label="Real Weight (g)" required>
+        <el-form-item label="Berat Asli (g)" required>
           <el-input-number
             v-model="form.realWeight"
             :min="0"
@@ -275,10 +270,10 @@
           />
         </el-form-item>
 
-        <el-form-item label="Carat" required>
+        <el-form-item label="Karat" required>
           <el-select
             v-model="form.carat"
-            placeholder="Select carat"
+            placeholder="Pilih karat"
             style="width: 100%"
           >
             <el-option label="9K" :value="9" />
@@ -291,7 +286,7 @@
 
         <el-divider />
 
-        <el-form-item label="Receipt Price ($)" required>
+        <el-form-item label="Harga Kwitansi ($)" required>
           <el-input-number
             v-model="form.recieptPrice"
             :min="0"
@@ -301,7 +296,7 @@
           />
         </el-form-item>
 
-        <el-form-item label="Purchase Price ($)" required>
+        <el-form-item label="Harga Pembelian ($)" required>
           <el-input-number
             v-model="form.purchasePrice"
             :min="0"
@@ -313,9 +308,9 @@
       </el-form>
 
       <template #footer>
-        <el-button @click="closeModal">Cancel</el-button>
+        <el-button @click="closeModal">Batal</el-button>
         <el-button type="primary" @click="handleSubmit" :loading="submitting">
-          {{ isEditMode ? "Update" : "Create" }}
+          {{ isEditMode ? "Perbarui" : "Buat" }}
         </el-button>
       </template>
     </el-dialog>
@@ -419,7 +414,7 @@ const fetchPurchases = async () => {
     const { data, error: apiError } = await $api.purchases.get();
 
     if (apiError) {
-      error.value = "Failed to load purchases";
+      error.value = "Gagal memuat pembelian";
       return;
     }
 
@@ -558,7 +553,8 @@ const handleSubmit = async () => {
         });
 
       if (apiError) {
-        formError.value = apiError.value.message || "Failed to update purchase";
+        formError.value =
+          apiError.value.message || "Gagal memperbarui pembelian";
         return;
       }
 
@@ -568,7 +564,7 @@ const handleSubmit = async () => {
         purchases.value[index] = data.data as any;
       }
 
-      ElMessage.success("Purchase updated successfully");
+      ElMessage.success("Pembelian berhasil diperbarui");
     } else {
       // Create purchase
       const { data, error: apiError } = await $api.purchases.post({
@@ -582,7 +578,7 @@ const handleSubmit = async () => {
       });
 
       if (apiError) {
-        formError.value = apiError.value.message || "Failed to create purchase";
+        formError.value = apiError.value.message || "Gagal membuat pembelian";
         return;
       }
 
@@ -590,7 +586,7 @@ const handleSubmit = async () => {
       if (data.data) {
         purchases.value.unshift(data.data as any);
       }
-      ElMessage.success("Purchase created successfully");
+      ElMessage.success("Pembelian berhasil dibuat");
     }
 
     closeModal();
@@ -605,11 +601,11 @@ const handleSubmit = async () => {
 const confirmDelete = async (purchase: Purchase) => {
   try {
     await ElMessageBox.confirm(
-      `Are you sure you want to delete this purchase? This action cannot be undone.`,
-      "Delete Purchase",
+      `Apakah Anda yakin ingin menghapus pembelian ini? Tindakan ini tidak dapat dibatalkan.`,
+      "Hapus Pembelian",
       {
-        confirmButtonText: "Delete",
-        cancelButtonText: "Cancel",
+        confirmButtonText: "Hapus",
+        cancelButtonText: "Batal",
         type: "warning",
         confirmButtonClass: "el-button--danger",
       },
@@ -639,14 +635,14 @@ const handleDelete = async (purchase: Purchase) => {
 
     if (apiError) {
       loading.close();
-      ElMessage.error(apiError.value.message || "Failed to delete purchase");
+      ElMessage.error(apiError.value.message || "Gagal menghapus pembelian");
       return;
     }
 
     // Remove purchase from list
     purchases.value = purchases.value.filter((p) => p.id !== purchase.id);
     loading.close();
-    ElMessage.success("Purchase deleted successfully");
+    ElMessage.success("Pembelian berhasil dihapus");
   } catch (err: any) {
     loading.close();
     ElMessage.error(err.message || "An error occurred");

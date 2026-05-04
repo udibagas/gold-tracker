@@ -7,9 +7,11 @@
       >
         <LockKeyhole :size="40" class="text-white" />
       </div>
-      <h2 class="mt-6 text-3xl font-extrabold text-gray-900">Welcome back</h2>
+      <h2 class="mt-6 text-3xl font-extrabold text-gray-900">
+        Selamat datang kembali
+      </h2>
       <p class="mt-2 text-sm text-gray-600">
-        Sign in to your account to continue
+        Masuk ke akun Anda untuk melanjutkan
       </p>
     </div>
 
@@ -30,7 +32,7 @@
             for="email"
             class="block text-sm font-medium text-gray-700 mb-2"
           >
-            Email address
+            Alamat email
           </label>
           <div class="relative">
             <div
@@ -55,7 +57,7 @@
             for="password"
             class="block text-sm font-medium text-gray-700 mb-2"
           >
-            Password
+            Kata sandi
           </label>
           <div class="relative">
             <div
@@ -103,7 +105,7 @@
               for="remember-me"
               class="ml-2 block text-sm text-gray-700 cursor-pointer"
             >
-              Remember me
+              Ingat saya
             </label>
           </div>
           <div class="text-sm">
@@ -111,7 +113,7 @@
               href="#"
               class="font-medium text-blue-600 hover:text-blue-500 transition duration-200"
             >
-              Forgot password?
+              Lupa kata sandi?
             </a>
           </div>
         </div>
@@ -128,7 +130,7 @@
               :size="20"
               class="animate-spin -ml-1 mr-3 text-white"
             />
-            {{ loading ? "Signing in..." : "Sign in" }}
+            {{ loading ? "Masuk..." : "Masuk" }}
           </button>
         </div>
       </form>
@@ -169,11 +171,11 @@ const handleSubmit = async () => {
       // Redirect to home/dashboard on success
       await navigateTo("/");
     } else {
-      errorMessage.value = result.message || "Login failed. Please try again.";
+      errorMessage.value = result.message || "Login gagal. Silakan coba lagi.";
     }
   } catch (error: any) {
     console.error("Login error:", error);
-    errorMessage.value = "An unexpected error occurred. Please try again.";
+    errorMessage.value = "Terjadi kesalahan tidak terduga. Silakan coba lagi.";
   } finally {
     loading.value = false;
   }

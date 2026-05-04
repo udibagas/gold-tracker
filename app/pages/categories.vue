@@ -3,14 +3,14 @@
     <!-- Page Header -->
     <div class="mb-6 flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-bold text-gray-900">Gold Categories</h1>
-        <p class="text-gray-600 mt-1">Manage gold item categories</p>
+        <h1 class="text-2xl font-bold text-gray-900">Kategori Emas</h1>
+        <p class="text-gray-600 mt-1">Kelola kategori barang emas</p>
       </div>
       <el-button type="warning" @click="openCreateModal">
         <template #icon>
           <Plus :size="18" />
         </template>
-        Add Category
+        Tambah Kategori
       </el-button>
     </div>
 
@@ -25,7 +25,7 @@
       class="mb-4"
     >
       <el-button type="primary" size="small" @click="fetchCategories">
-        Retry
+        Coba Lagi
       </el-button>
     </el-alert>
 
@@ -33,7 +33,7 @@
     <el-card shadow="hover" class="mb-6">
       <template #header>
         <div class="flex items-center justify-between">
-          <span class="font-semibold">Categories Overview</span>
+          <span class="font-semibold">Ikhtisar Kategori</span>
           <el-tag>{{ categories.length }} Categories</el-tag>
         </div>
       </template>
@@ -46,9 +46,9 @@
         <Bar :data="chartData" :options="chartOptions" />
       </div>
 
-      <el-empty v-else description="No categories found" class="py-8">
+      <el-empty v-else description="Tidak ada kategori ditemukan" class="py-8">
         <el-button type="warning" @click="openCreateModal">
-          Add First Category
+          Tambah Kategori Pertama
         </el-button>
       </el-empty>
     </el-card>
@@ -57,7 +57,7 @@
     <el-card shadow="hover" class="mt-6">
       <template #header>
         <div class="flex items-center justify-between">
-          <span class="font-semibold">All Categories</span>
+          <span class="font-semibold">Semua Kategori</span>
           <el-tag>{{ categories.length }} Total</el-tag>
         </div>
       </template>
@@ -68,7 +68,7 @@
         style="width: 100%"
         stripe
       >
-        <el-table-column prop="name" label="Category Name" min-width="200">
+        <el-table-column prop="name" label="Nama Kategori" min-width="200">
           <template #default="{ row }">
             <div class="flex items-center gap-3">
               <el-avatar
@@ -82,13 +82,13 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Purchases" width="120" align="center">
+        <el-table-column label="Pembelian" width="120" align="center">
           <template #default="{ row }">
             <el-tag type="info" size="small">{{ row._count.purchases }}</el-tag>
           </template>
         </el-table-column>
 
-        <el-table-column label="Cleanings" width="120" align="center">
+        <el-table-column label="Pembersihan" width="120" align="center">
           <template #default="{ row }">
             <el-tag type="success" size="small">{{
               row._count.cleanings
@@ -96,7 +96,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Repairs" width="120" align="center">
+        <el-table-column label="Perbaikan" width="120" align="center">
           <template #default="{ row }">
             <el-tag type="warning" size="small">{{
               row._count.repairs
@@ -104,20 +104,20 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Created At" width="150">
+        <el-table-column label="Dibuat Pada" width="150">
           <template #default="{ row }">
             {{ formatDate(row.createdAt) }}
           </template>
         </el-table-column>
 
-        <el-table-column label="Actions" width="150" align="center">
+        <el-table-column label="Aksi" width="150" align="center">
           <template #default="{ row }">
             <el-button
               type="warning"
               size="small"
               circle
               @click="openEditModal(row)"
-              title="Edit"
+              title="Ubah"
             >
               <Edit2 :size="16" />
             </el-button>
@@ -129,8 +129,8 @@
               :disabled="getTotalRecords(row) > 0"
               :title="
                 getTotalRecords(row) > 0
-                  ? 'Cannot delete - has related records'
-                  : 'Delete'
+                  ? 'Tidak dapat menghapus - memiliki data terkait'
+                  : 'Hapus'
               "
             >
               <Trash2 :size="16" />
@@ -143,7 +143,7 @@
     <!-- Create/Edit Dialog -->
     <el-dialog
       v-model="showModal"
-      :title="isEditMode ? 'Edit Category' : 'Create Category'"
+      :title="isEditMode ? 'Ubah Kategori' : 'Buat Kategori'"
       width="500px"
       :close-on-click-modal="false"
     >
@@ -158,7 +158,7 @@
       />
 
       <el-form :model="form" label-width="120px" label-position="top">
-        <el-form-item label="Category Name" required>
+        <el-form-item label="Nama Kategori" required>
           <el-input
             v-model="form.name"
             placeholder="e.g., Rings, Necklaces, Bracelets"
@@ -169,9 +169,9 @@
       </el-form>
 
       <template #footer>
-        <el-button @click="closeModal">Cancel</el-button>
+        <el-button @click="closeModal">Batal</el-button>
         <el-button type="warning" @click="handleSubmit" :loading="submitting">
-          {{ isEditMode ? "Update" : "Create" }}
+          {{ isEditMode ? "Perbarui" : "Buat" }}
         </el-button>
       </template>
     </el-dialog>
@@ -312,7 +312,7 @@ const fetchCategories = async () => {
     const { data, error: apiError } = await $api.categories.get();
 
     if (apiError) {
-      error.value = "Failed to load categories";
+      error.value = "Gagal memuat kategori";
       return;
     }
 
@@ -384,7 +384,8 @@ const handleSubmit = async () => {
         });
 
       if (apiError) {
-        formError.value = apiError.value.message || "Failed to update category";
+        formError.value =
+          apiError.value.message || "Gagal memperbarui kategori";
         return;
       }
 
@@ -394,7 +395,7 @@ const handleSubmit = async () => {
         categories.value[index] = data.data as any;
       }
 
-      ElMessage.success("Category updated successfully");
+      ElMessage.success("Kategori berhasil diperbarui");
     } else {
       // Create category
       const { data, error: apiError } = await $api.categories.post({
@@ -402,7 +403,7 @@ const handleSubmit = async () => {
       });
 
       if (apiError) {
-        formError.value = apiError.value.message || "Failed to create category";
+        formError.value = apiError.value.message || "Gagal membuat kategori";
         return;
       }
 
@@ -410,7 +411,7 @@ const handleSubmit = async () => {
       if (data.data) {
         categories.value.unshift(data.data as any);
       }
-      ElMessage.success("Category created successfully");
+      ElMessage.success("Kategori berhasil dibuat");
     }
 
     closeModal();
@@ -427,18 +428,18 @@ const confirmDelete = async (category: Category) => {
 
   if (totalRecords > 0) {
     ElMessage.warning(
-      `Cannot delete this category. It has ${totalRecords} related record(s).`,
+      `Tidak dapat menghapus kategori ini. Terdapat ${totalRecords} data terkait.`,
     );
     return;
   }
 
   try {
     await ElMessageBox.confirm(
-      `Are you sure you want to delete "${category.name}"? This action cannot be undone.`,
-      "Delete Category",
+      `Apakah Anda yakin ingin menghapus "${category.name}"? Tindakan ini tidak dapat dibatalkan.`,
+      "Hapus Kategori",
       {
-        confirmButtonText: "Delete",
-        cancelButtonText: "Cancel",
+        confirmButtonText: "Hapus",
+        cancelButtonText: "Batal",
         type: "warning",
         confirmButtonClass: "el-button--danger",
       },
@@ -468,14 +469,14 @@ const handleDelete = async (category: Category) => {
 
     if (apiError) {
       loading.close();
-      ElMessage.error(apiError.value.message || "Failed to delete category");
+      ElMessage.error(apiError.value.message || "Gagal menghapus kategori");
       return;
     }
 
     // Remove category from list
     categories.value = categories.value.filter((c) => c.id !== category.id);
     loading.close();
-    ElMessage.success("Category deleted successfully");
+    ElMessage.success("Kategori berhasil dihapus");
   } catch (err: any) {
     loading.close();
     ElMessage.error(err.message || "An error occurred");

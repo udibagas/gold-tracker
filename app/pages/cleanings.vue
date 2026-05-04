@@ -3,14 +3,14 @@
     <!-- Page Header -->
     <div class="mb-6 flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-bold text-gray-900">Gold Cleaning</h1>
-        <p class="text-gray-600 mt-1">Track gold cleaning operations</p>
+        <h1 class="text-2xl font-bold text-gray-900">Pembersihan Emas</h1>
+        <p class="text-gray-600 mt-1">Lacak operasi pembersihan emas</p>
       </div>
       <el-button type="success" @click="openCreateModal">
         <template #icon>
           <Sparkles :size="18" />
         </template>
-        Add Cleaning
+        Tambah Pembersihan
       </el-button>
     </div>
 
@@ -25,7 +25,7 @@
       class="mb-4"
     >
       <el-button type="primary" size="small" @click="fetchCleanings">
-        Retry
+        Coba Lagi
       </el-button>
     </el-alert>
 
@@ -42,7 +42,7 @@
             <div class="text-2xl font-bold text-gray-900">
               {{ cleanings.length }}
             </div>
-            <div class="text-sm text-gray-600">Total Cleanings</div>
+            <div class="text-sm text-gray-600">Total Pembersihan</div>
           </div>
         </div>
       </el-card>
@@ -58,7 +58,7 @@
             <div class="text-2xl font-bold text-gray-900">
               {{ totalWeightBefore.toFixed(2) }}g
             </div>
-            <div class="text-sm text-gray-600">Total Weight Before</div>
+            <div class="text-sm text-gray-600">Total Berat Sebelum</div>
           </div>
         </div>
       </el-card>
@@ -74,7 +74,7 @@
             <div class="text-2xl font-bold text-gray-900">
               {{ totalWeightAfter.toFixed(2) }}g
             </div>
-            <div class="text-sm text-gray-600">Total Weight After</div>
+            <div class="text-sm text-gray-600">Total Berat Sesudah</div>
           </div>
         </div>
       </el-card>
@@ -90,7 +90,7 @@
             <div class="text-2xl font-bold text-red-600">
               {{ totalWeightLoss.toFixed(2) }}g
             </div>
-            <div class="text-sm text-gray-600">Total Weight Loss</div>
+            <div class="text-sm text-gray-600">Total Kehilangan Berat</div>
           </div>
         </div>
       </el-card>
@@ -100,7 +100,7 @@
     <el-card shadow="hover">
       <template #header>
         <div class="flex items-center justify-between">
-          <span class="font-semibold">All Cleanings</span>
+          <span class="font-semibold">Semua Pembersihan</span>
           <el-tag>{{ cleanings.length }} Total</el-tag>
         </div>
       </template>
@@ -111,7 +111,7 @@
         style="width: 100%"
         stripe
       >
-        <el-table-column label="Category" min-width="150">
+        <el-table-column label="Kategori" min-width="150">
           <template #default="{ row }">
             <div class="flex items-center gap-2">
               <el-tag type="warning" size="small">{{
@@ -121,13 +121,13 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Weight Before" width="140" align="right">
+        <el-table-column label="Berat Sebelum" width="140" align="right">
           <template #default="{ row }">
             <span class="font-semibold">{{ row.weightBefore }}g</span>
           </template>
         </el-table-column>
 
-        <el-table-column label="Weight After" width="140" align="right">
+        <el-table-column label="Berat Sesudah" width="140" align="right">
           <template #default="{ row }">
             <span class="font-semibold text-green-600"
               >{{ row.weightAfter }}g</span
@@ -135,7 +135,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Weight Loss" width="140" align="right">
+        <el-table-column label="Kehilangan Berat" width="140" align="right">
           <template #default="{ row }">
             <span class="text-red-600 font-semibold">
               {{ (row.weightBefore - row.weightAfter).toFixed(2) }}g
@@ -143,7 +143,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Loss %" width="110" align="center">
+        <el-table-column label="Kehilangan %" width="110" align="center">
           <template #default="{ row }">
             <el-tag :type="getLossPercentageType(row)" size="small">
               {{ calculateLossPercentage(row) }}%
@@ -151,7 +151,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Carat" width="100" align="center">
+        <el-table-column label="Karat" width="100" align="center">
           <template #default="{ row }">
             <el-tag :type="getCaratTagType(row.carat)" size="small">
               {{ row.carat }}K
@@ -159,7 +159,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="User" width="150">
+        <el-table-column label="Pengguna" width="150">
           <template #default="{ row }">
             <div class="flex items-center gap-2">
               <el-avatar
@@ -173,25 +173,20 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Date" width="150">
+        <el-table-column label="Tanggal" width="150">
           <template #default="{ row }">
             {{ formatDate(row.createdAt) }}
           </template>
         </el-table-column>
 
-        <el-table-column
-          label="Actions"
-          width="150"
-          align="center"
-          fixed="right"
-        >
+        <el-table-column label="Aksi" width="150" align="center" fixed="right">
           <template #default="{ row }">
             <el-button
               type="success"
               size="small"
               circle
               @click="openEditModal(row)"
-              title="Edit"
+              title="Ubah"
             >
               <Edit2 :size="16" />
             </el-button>
@@ -200,7 +195,7 @@
               size="small"
               circle
               @click="confirmDelete(row)"
-              title="Delete"
+              title="Hapus"
             >
               <Trash2 :size="16" />
             </el-button>
@@ -212,7 +207,7 @@
     <!-- Create/Edit Dialog -->
     <el-dialog
       v-model="showModal"
-      :title="isEditMode ? 'Edit Cleaning' : 'Create Cleaning'"
+      :title="isEditMode ? 'Ubah Pembersihan' : 'Buat Pembersihan'"
       width="600px"
       :close-on-click-modal="false"
     >
@@ -227,10 +222,10 @@
       />
 
       <el-form :model="form" label-width="140px" label-position="left">
-        <el-form-item label="Category" required>
+        <el-form-item label="Kategori" required>
           <el-select
             v-model="form.categoryId"
-            placeholder="Select category"
+            placeholder="Pilih kategori"
             style="width: 100%"
             filterable
           >
@@ -243,10 +238,10 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="User" required>
+        <el-form-item label="Pengguna" required>
           <el-select
             v-model="form.userId"
-            placeholder="Select user"
+            placeholder="Pilih pengguna"
             style="width: 100%"
             filterable
           >
@@ -261,7 +256,7 @@
 
         <el-divider />
 
-        <el-form-item label="Weight Before (g)" required>
+        <el-form-item label="Berat Sebelum (g)" required>
           <el-input-number
             v-model="form.weightBefore"
             :min="0"
@@ -271,7 +266,7 @@
           />
         </el-form-item>
 
-        <el-form-item label="Weight After (g)" required>
+        <el-form-item label="Berat Sesudah (g)" required>
           <el-input-number
             v-model="form.weightAfter"
             :min="0"
@@ -281,10 +276,10 @@
           />
         </el-form-item>
 
-        <el-form-item label="Carat" required>
+        <el-form-item label="Karat" required>
           <el-select
             v-model="form.carat"
-            placeholder="Select carat"
+            placeholder="Pilih karat"
             style="width: 100%"
           >
             <el-option label="9K" :value="9" />
@@ -305,9 +300,9 @@
       </el-form>
 
       <template #footer>
-        <el-button @click="closeModal">Cancel</el-button>
+        <el-button @click="closeModal">Batal</el-button>
         <el-button type="success" @click="handleSubmit" :loading="submitting">
-          {{ isEditMode ? "Update" : "Create" }}
+          {{ isEditMode ? "Perbarui" : "Buat" }}
         </el-button>
       </template>
     </el-dialog>
@@ -430,7 +425,7 @@ const fetchCleanings = async () => {
     const { data, error: apiError } = await $api.cleanings.get();
 
     if (apiError) {
-      error.value = "Failed to load cleanings";
+      error.value = "Gagal memuat pembersihan";
       return;
     }
 
@@ -555,7 +550,8 @@ const handleSubmit = async () => {
         });
 
       if (apiError) {
-        formError.value = apiError.value.message || "Failed to update cleaning";
+        formError.value =
+          apiError.value.message || "Gagal memperbarui pembersihan";
         return;
       }
 
@@ -565,7 +561,7 @@ const handleSubmit = async () => {
         cleanings.value[index] = data.data as any;
       }
 
-      ElMessage.success("Cleaning updated successfully");
+      ElMessage.success("Pembersihan berhasil diperbarui");
     } else {
       // Create cleaning
       const { data, error: apiError } = await $api.cleanings.post({
@@ -577,7 +573,7 @@ const handleSubmit = async () => {
       });
 
       if (apiError) {
-        formError.value = apiError.value.message || "Failed to create cleaning";
+        formError.value = apiError.value.message || "Gagal membuat pembersihan";
         return;
       }
 
@@ -585,7 +581,7 @@ const handleSubmit = async () => {
       if (data.data) {
         cleanings.value.unshift(data.data as any);
       }
-      ElMessage.success("Cleaning created successfully");
+      ElMessage.success("Pembersihan berhasil dibuat");
     }
 
     closeModal();
@@ -600,11 +596,11 @@ const handleSubmit = async () => {
 const confirmDelete = async (cleaning: Cleaning) => {
   try {
     await ElMessageBox.confirm(
-      `Are you sure you want to delete this cleaning record? This action cannot be undone.`,
-      "Delete Cleaning",
+      `Apakah Anda yakin ingin menghapus catatan pembersihan ini? Tindakan ini tidak dapat dibatalkan.`,
+      "Hapus Pembersihan",
       {
-        confirmButtonText: "Delete",
-        cancelButtonText: "Cancel",
+        confirmButtonText: "Hapus",
+        cancelButtonText: "Batal",
         type: "warning",
         confirmButtonClass: "el-button--danger",
       },
@@ -634,14 +630,14 @@ const handleDelete = async (cleaning: Cleaning) => {
 
     if (apiError) {
       loading.close();
-      ElMessage.error(apiError.value.message || "Failed to delete cleaning");
+      ElMessage.error(apiError.value.message || "Gagal menghapus pembersihan");
       return;
     }
 
     // Remove cleaning from list
     cleanings.value = cleanings.value.filter((c) => c.id !== cleaning.id);
     loading.close();
-    ElMessage.success("Cleaning deleted successfully");
+    ElMessage.success("Pembersihan berhasil dihapus");
   } catch (err: any) {
     loading.close();
     ElMessage.error(err.message || "An error occurred");

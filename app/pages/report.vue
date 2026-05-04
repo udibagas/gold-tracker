@@ -2,9 +2,9 @@
   <div>
     <!-- Page Header -->
     <div class="mb-6">
-      <h1 class="text-2xl font-bold text-gray-900">Reports & Analytics</h1>
+      <h1 class="text-2xl font-bold text-gray-900">Laporan & Analitik</h1>
       <p class="text-gray-600 mt-1">
-        Comprehensive overview of all gold operations
+        Ikhtisar komprehensif dari semua operasi emas
       </p>
     </div>
 
@@ -13,7 +13,7 @@
       <template #header>
         <div class="flex items-center gap-2">
           <Filter :size="20" />
-          <span class="font-semibold">Filters</span>
+          <span class="font-semibold">Filter</span>
         </div>
       </template>
 
@@ -21,14 +21,14 @@
         <!-- Date Range -->
         <div>
           <label class="text-sm font-medium text-gray-700 mb-2 block"
-            >Date Range</label
+            >Rentang Tanggal</label
           >
           <el-date-picker
             v-model="dateRange"
             type="daterange"
-            range-separator="to"
-            start-placeholder="Start date"
-            end-placeholder="End date"
+            range-separator="sampai"
+            start-placeholder="Tanggal mulai"
+            end-placeholder="Tanggal akhir"
             style="width: 100%"
             @change="fetchReport"
           />
@@ -37,21 +37,21 @@
         <!-- Period View -->
         <div>
           <label class="text-sm font-medium text-gray-700 mb-2 block"
-            >View Period</label
+            >Tampilan Periode</label
           >
           <el-select
             v-model="selectedPeriod"
-            placeholder="Select period"
+            placeholder="Pilih periode"
             style="width: 100%"
             @change="handlePeriodChange"
           >
-            <el-option label="All Time" value="all" />
-            <el-option label="Today" value="today" />
-            <el-option label="This Week" value="week" />
-            <el-option label="This Month" value="month" />
-            <el-option label="Last 30 Days" value="last30" />
-            <el-option label="Last 90 Days" value="last90" />
-            <el-option label="Custom Range" value="custom" />
+            <el-option label="Semua Waktu" value="all" />
+            <el-option label="Hari Ini" value="today" />
+            <el-option label="Minggu Ini" value="week" />
+            <el-option label="Bulan Ini" value="month" />
+            <el-option label="30 Hari Terakhir" value="last30" />
+            <el-option label="90 Hari Terakhir" value="last90" />
+            <el-option label="Rentang Kustom" value="custom" />
           </el-select>
         </div>
 
@@ -98,18 +98,18 @@
             <div class="text-2xl font-bold text-gray-900">
               {{ summary.purchases.count }}
             </div>
-            <div class="text-sm text-gray-600">Purchases</div>
+            <div class="text-sm text-gray-600">Pembelian</div>
           </div>
         </div>
         <div class="space-y-1 text-sm">
           <div class="flex justify-between">
-            <span class="text-gray-600">Total Weight:</span>
+            <span class="text-gray-600">Total Berat:</span>
             <span class="font-semibold"
               >{{ summary.purchases.totalRealWeight.toFixed(2) }}g</span
             >
           </div>
           <div class="flex justify-between">
-            <span class="text-gray-600">Total Cost:</span>
+            <span class="text-gray-600">Total Biaya:</span>
             <span class="font-semibold text-blue-600"
               >${{ summary.purchases.totalPurchasePrice.toFixed(2) }}</span
             >
@@ -129,12 +129,12 @@
             <div class="text-2xl font-bold text-gray-900">
               {{ summary.cleanings.count }}
             </div>
-            <div class="text-sm text-gray-600">Cleanings</div>
+            <div class="text-sm text-gray-600">Pembersihan</div>
           </div>
         </div>
         <div class="space-y-1 text-sm">
           <div class="flex justify-between">
-            <span class="text-gray-600">Weight Loss:</span>
+            <span class="text-gray-600">Kehilangan Berat:</span>
             <span class="font-semibold text-red-600"
               >{{ summary.cleanings.totalWeightLoss.toFixed(2) }}g</span
             >
@@ -160,12 +160,12 @@
             <div class="text-2xl font-bold text-gray-900">
               {{ summary.repairs.count }}
             </div>
-            <div class="text-sm text-gray-600">Repairs</div>
+            <div class="text-sm text-gray-600">Perbaikan</div>
           </div>
         </div>
         <div class="space-y-1 text-sm">
           <div class="flex justify-between">
-            <span class="text-gray-600">Weight Change:</span>
+            <span class="text-gray-600">Perubahan Berat:</span>
             <span
               class="font-semibold"
               :class="
@@ -193,7 +193,7 @@
             <div class="text-2xl font-bold text-gray-900">
               {{ summary.meltings.count }}
             </div>
-            <div class="text-sm text-gray-600">Meltings</div>
+            <div class="text-sm text-gray-600">Peleburan</div>
           </div>
         </div>
         <div class="space-y-1 text-sm">
@@ -219,8 +219,8 @@
       <el-card shadow="hover" v-loading="loading">
         <template #header>
           <div class="flex items-center justify-between">
-            <span class="font-semibold">Operations Over Time</span>
-            <el-tag>{{ dailyData.length }} Days</el-tag>
+            <span class="font-semibold">Operasi Dari Waktu ke Waktu</span>
+            <el-tag>{{ dailyData.length }} Hari</el-tag>
           </div>
         </template>
         <Line
@@ -236,7 +236,7 @@
       <!-- Operations Breakdown -->
       <el-card shadow="hover" v-loading="loading">
         <template #header>
-          <span class="font-semibold">Operations Breakdown</span>
+          <span class="font-semibold">Rincian Operasi</span>
         </template>
         <Doughnut
           v-if="!loading && hasOperations"
@@ -254,7 +254,7 @@
       <!-- Weight Analysis -->
       <el-card shadow="hover" v-loading="loading">
         <template #header>
-          <span class="font-semibold">Weight Flow Analysis</span>
+          <span class="font-semibold">Analisis Alur Berat</span>
         </template>
         <Bar
           v-if="!loading && hasOperations"
@@ -269,7 +269,7 @@
       <!-- Carat Distribution -->
       <el-card shadow="hover" v-loading="loading">
         <template #header>
-          <span class="font-semibold">Carat Distribution</span>
+          <span class="font-semibold">Distribusi Karat</span>
         </template>
         <Bar
           v-if="!loading && hasOperations"
@@ -285,7 +285,7 @@
     <!-- Category Breakdown -->
     <el-card shadow="hover" v-loading="loading" v-if="hasCategories">
       <template #header>
-        <span class="font-semibold">Operations by Category</span>
+        <span class="font-semibold">Operasi berdasarkan Kategori</span>
       </template>
       <Bar
         v-if="!loading"
@@ -716,7 +716,7 @@ const fetchReport = async () => {
     const { data, error: apiError } = await $api.reports.get({ query: params });
 
     if (apiError) {
-      error.value = "Failed to load report data";
+      error.value = "Gagal memuat data laporan";
       return;
     }
 

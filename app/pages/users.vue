@@ -3,14 +3,14 @@
     <!-- Page Header -->
     <div class="mb-6 flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-bold text-gray-900">User Management</h1>
-        <p class="text-gray-600 mt-1">Manage system users and permissions</p>
+        <h1 class="text-2xl font-bold text-gray-900">Manajemen Pengguna</h1>
+        <p class="text-gray-600 mt-1">Kelola pengguna dan izin sistem</p>
       </div>
       <el-button type="warning" @click="openCreateModal">
         <template #icon>
           <UserPlus :size="18" />
         </template>
-        Add User
+        Tambah Pengguna
       </el-button>
     </div>
 
@@ -25,7 +25,7 @@
       class="mb-4"
     >
       <el-button type="primary" size="small" @click="fetchUsers">
-        Retry
+        Coba Lagi
       </el-button>
     </el-alert>
 
@@ -38,7 +38,7 @@
         stripe
         :empty-text="'No users found'"
       >
-        <el-table-column prop="name" label="Name" min-width="200">
+        <el-table-column prop="name" label="Nama" min-width="200">
           <template #default="{ row }">
             <div class="flex items-center gap-3">
               <el-avatar
@@ -54,20 +54,20 @@
 
         <el-table-column prop="email" label="Email" min-width="250" />
 
-        <el-table-column label="Created At" width="180">
+        <el-table-column label="Dibuat Pada" width="180">
           <template #default="{ row }">
             {{ formatDate(row.createdAt) }}
           </template>
         </el-table-column>
 
-        <el-table-column label="Actions" width="150" align="center">
+        <el-table-column label="Aksi" width="150" align="center">
           <template #default="{ row }">
             <el-button
               type="warning"
               size="small"
               circle
               @click="openEditModal(row)"
-              title="Edit"
+              title="Ubah"
             >
               <Edit2 :size="16" />
             </el-button>
@@ -76,7 +76,7 @@
               size="small"
               circle
               @click="confirmDelete(row)"
-              title="Delete"
+              title="Hapus"
             >
               <Trash2 :size="16" />
             </el-button>
@@ -88,7 +88,7 @@
     <!-- Create/Edit Dialog -->
     <el-dialog
       v-model="showModal"
-      :title="isEditMode ? 'Edit User' : 'Create User'"
+      :title="isEditMode ? 'Ubah Pengguna' : 'Buat Pengguna'"
       width="500px"
       :close-on-click-modal="false"
     >
@@ -103,7 +103,7 @@
       />
 
       <el-form :model="form" label-width="100px" label-position="top">
-        <el-form-item label="Name" required>
+        <el-form-item label="Nama" required>
           <el-input v-model="form.name" placeholder="John Doe" />
         </el-form-item>
 
@@ -129,8 +129,8 @@
             <span class="text-xs text-gray-500">
               {{
                 isEditMode
-                  ? "Leave blank to keep current password"
-                  : "Minimum 6 characters"
+                  ? "Biarkan kosong untuk mempertahankan kata sandi saat ini"
+                  : "Minimal 6 karakter"
               }}
             </span>
           </template>
@@ -138,9 +138,9 @@
       </el-form>
 
       <template #footer>
-        <el-button @click="closeModal">Cancel</el-button>
+        <el-button @click="closeModal">Batal</el-button>
         <el-button type="warning" @click="handleSubmit" :loading="submitting">
-          {{ isEditMode ? "Update" : "Create" }}
+          {{ isEditMode ? "Perbarui" : "Buat" }}
         </el-button>
       </template>
     </el-dialog>
@@ -190,7 +190,7 @@ const fetchUsers = async () => {
     const { data, error: apiError } = await $api.users.get();
 
     if (apiError) {
-      error.value = "Failed to load users";
+      error.value = "Gagal memuat pengguna";
       return;
     }
 
@@ -238,17 +238,17 @@ const closeModal = () => {
 const handleSubmit = async () => {
   // Validate form
   if (!form.value.name || !form.value.email) {
-    formError.value = "Please fill in all required fields";
+    formError.value = "Harap isi semua kolom yang wajib diisi";
     return;
   }
 
   if (!isEditMode.value && !form.value.password) {
-    formError.value = "Password is required";
+    formError.value = "Kata sandi wajib diisi";
     return;
   }
 
   if (form.value.password && form.value.password.length < 6) {
-    formError.value = "Password must be at least 6 characters";
+    formError.value = "Kata sandi harus minimal 6 karakter";
     return;
   }
 
@@ -267,7 +267,8 @@ const handleSubmit = async () => {
         });
 
       if (apiError) {
-        formError.value = apiError.value.message || "Failed to update user";
+        formError.value =
+          apiError.value.message || "Gagal memperbarui pengguna";
         return;
       }
 
@@ -277,7 +278,7 @@ const handleSubmit = async () => {
         users.value[index] = data.data as any;
       }
 
-      ElMessage.success("User updated successfully");
+      ElMessage.success("Pengguna berhasil diperbarui");
     } else {
       // Create user
       const { data, error: apiError } = await $api.users.post({
@@ -287,7 +288,7 @@ const handleSubmit = async () => {
       });
 
       if (apiError) {
-        formError.value = apiError.value.message || "Failed to create user";
+        formError.value = apiError.value.message || "Gagal membuat pengguna";
         return;
       }
 
@@ -295,12 +296,12 @@ const handleSubmit = async () => {
       if (data.data) {
         users.value.unshift(data.data as any);
       }
-      ElMessage.success("User created successfully");
+      ElMessage.success("Pengguna berhasil dibuat");
     }
 
     closeModal();
   } catch (err: any) {
-    formError.value = err.message || "An error occurred";
+    formError.value = err.message || "Terjadi kesalahan";
   } finally {
     submitting.value = false;
   }
@@ -310,11 +311,11 @@ const handleSubmit = async () => {
 const confirmDelete = async (user: User) => {
   try {
     await ElMessageBox.confirm(
-      `Are you sure you want to delete ${user.name}? This action cannot be undone.`,
-      "Delete User",
+      `Apakah Anda yakin ingin menghapus ${user.name}? Tindakan ini tidak dapat dibatalkan.`,
+      "Hapus Pengguna",
       {
-        confirmButtonText: "Delete",
-        cancelButtonText: "Cancel",
+        confirmButtonText: "Hapus",
+        cancelButtonText: "Batal",
         type: "warning",
         confirmButtonClass: "el-button--danger",
       },
@@ -342,14 +343,14 @@ const handleDelete = async (user: User) => {
 
     if (apiError) {
       loading.close();
-      ElMessage.error(apiError.value.message || "Failed to delete user");
+      ElMessage.error(apiError.value.message || "Gagal menghapus pengguna");
       return;
     }
 
     // Remove user from list
     users.value = users.value.filter((u) => u.id !== user.id);
     loading.close();
-    ElMessage.success("User deleted successfully");
+    ElMessage.success("Pengguna berhasil dihapus");
   } catch (err: any) {
     loading.close();
     ElMessage.error(err.message || "An error occurred");

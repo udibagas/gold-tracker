@@ -3,14 +3,14 @@
     <!-- Page Header -->
     <div class="mb-6 flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-bold text-gray-900">Gold Repairs</h1>
-        <p class="text-gray-600 mt-1">Track gold repair operations</p>
+        <h1 class="text-2xl font-bold text-gray-900">Perbaikan Emas</h1>
+        <p class="text-gray-600 mt-1">Lacak operasi perbaikan emas</p>
       </div>
       <el-button type="warning" @click="openCreateModal">
         <template #icon>
           <Wrench :size="18" />
         </template>
-        Add Repair
+        Tambah Perbaikan
       </el-button>
     </div>
 
@@ -25,7 +25,7 @@
       class="mb-4"
     >
       <el-button type="primary" size="small" @click="fetchRepairs">
-        Retry
+        Coba Lagi
       </el-button>
     </el-alert>
 
@@ -42,7 +42,7 @@
             <div class="text-2xl font-bold text-gray-900">
               {{ repairs.length }}
             </div>
-            <div class="text-sm text-gray-600">Total Repairs</div>
+            <div class="text-sm text-gray-600">Total Perbaikan</div>
           </div>
         </div>
       </el-card>
@@ -58,7 +58,7 @@
             <div class="text-2xl font-bold text-gray-900">
               {{ totalWeightBefore.toFixed(2) }}g
             </div>
-            <div class="text-sm text-gray-600">Total Weight Before</div>
+            <div class="text-sm text-gray-600">Total Berat Sebelum</div>
           </div>
         </div>
       </el-card>
@@ -74,7 +74,7 @@
             <div class="text-2xl font-bold text-gray-900">
               {{ totalWeightAfter.toFixed(2) }}g
             </div>
-            <div class="text-sm text-gray-600">Total Weight After</div>
+            <div class="text-sm text-gray-600">Total Berat Sesudah</div>
           </div>
         </div>
       </el-card>
@@ -104,7 +104,7 @@
               {{ totalWeightChange >= 0 ? "+" : ""
               }}{{ totalWeightChange.toFixed(2) }}g
             </div>
-            <div class="text-sm text-gray-600">Total Weight Change</div>
+            <div class="text-sm text-gray-600">Total Perubahan Berat</div>
           </div>
         </div>
       </el-card>
@@ -114,13 +114,13 @@
     <el-card shadow="hover">
       <template #header>
         <div class="flex items-center justify-between">
-          <span class="font-semibold">All Repairs</span>
+          <span class="font-semibold">Semua Perbaikan</span>
           <el-tag>{{ repairs.length }} Total</el-tag>
         </div>
       </template>
 
       <el-table :data="repairs" v-loading="loading" style="width: 100%" stripe>
-        <el-table-column label="Category" min-width="150">
+        <el-table-column label="Kategori" min-width="150">
           <template #default="{ row }">
             <div class="flex items-center gap-2">
               <el-tag type="warning" size="small">{{
@@ -130,13 +130,13 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Weight Before" width="140" align="right">
+        <el-table-column label="Berat Sebelum" width="140" align="right">
           <template #default="{ row }">
             <span class="font-semibold">{{ row.weightBefore }}g</span>
           </template>
         </el-table-column>
 
-        <el-table-column label="Weight After" width="140" align="right">
+        <el-table-column label="Berat Sesudah" width="140" align="right">
           <template #default="{ row }">
             <span
               class="font-semibold"
@@ -151,7 +151,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Weight Change" width="150" align="right">
+        <el-table-column label="Perubahan Berat" width="150" align="right">
           <template #default="{ row }">
             <span
               :class="
@@ -165,7 +165,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Change %" width="110" align="center">
+        <el-table-column label="Perubahan %" width="110" align="center">
           <template #default="{ row }">
             <el-tag :type="getChangePercentageType(row)" size="small">
               {{ calculateChangePercentage(row) >= 0 ? "+" : ""
@@ -174,7 +174,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Carat" width="100" align="center">
+        <el-table-column label="Karat" width="100" align="center">
           <template #default="{ row }">
             <el-tag :type="getCaratTagType(row.carat)" size="small">
               {{ row.carat }}K
@@ -182,7 +182,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="User" width="150">
+        <el-table-column label="Pengguna" width="150">
           <template #default="{ row }">
             <div class="flex items-center gap-2">
               <el-avatar
@@ -196,25 +196,20 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Date" width="150">
+        <el-table-column label="Tanggal" width="150">
           <template #default="{ row }">
             {{ formatDate(row.createdAt) }}
           </template>
         </el-table-column>
 
-        <el-table-column
-          label="Actions"
-          width="150"
-          align="center"
-          fixed="right"
-        >
+        <el-table-column label="Aksi" width="150" align="center" fixed="right">
           <template #default="{ row }">
             <el-button
               type="warning"
               size="small"
               circle
               @click="openEditModal(row)"
-              title="Edit"
+              title="Ubah"
             >
               <Edit2 :size="16" />
             </el-button>
@@ -223,7 +218,7 @@
               size="small"
               circle
               @click="confirmDelete(row)"
-              title="Delete"
+              title="Hapus"
             >
               <Trash2 :size="16" />
             </el-button>
@@ -235,7 +230,7 @@
     <!-- Create/Edit Dialog -->
     <el-dialog
       v-model="showModal"
-      :title="isEditMode ? 'Edit Repair' : 'Create Repair'"
+      :title="isEditMode ? 'Ubah Perbaikan' : 'Buat Perbaikan'"
       width="600px"
       :close-on-click-modal="false"
     >
@@ -250,10 +245,10 @@
       />
 
       <el-form :model="form" label-width="140px" label-position="left">
-        <el-form-item label="Category" required>
+        <el-form-item label="Kategori" required>
           <el-select
             v-model="form.categoryId"
-            placeholder="Select category"
+            placeholder="Pilih kategori"
             style="width: 100%"
             filterable
           >
@@ -266,10 +261,10 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="User" required>
+        <el-form-item label="Pengguna" required>
           <el-select
             v-model="form.userId"
-            placeholder="Select user"
+            placeholder="Pilih pengguna"
             style="width: 100%"
             filterable
           >
@@ -284,7 +279,7 @@
 
         <el-divider />
 
-        <el-form-item label="Weight Before (g)" required>
+        <el-form-item label="Berat Sebelum (g)" required>
           <el-input-number
             v-model="form.weightBefore"
             :min="0"
@@ -294,7 +289,7 @@
           />
         </el-form-item>
 
-        <el-form-item label="Weight After (g)" required>
+        <el-form-item label="Berat Sesudah (g)" required>
           <el-input-number
             v-model="form.weightAfter"
             :min="0"
@@ -304,10 +299,10 @@
           />
         </el-form-item>
 
-        <el-form-item label="Carat" required>
+        <el-form-item label="Karat" required>
           <el-select
             v-model="form.carat"
-            placeholder="Select carat"
+            placeholder="Pilih karat"
             style="width: 100%"
           >
             <el-option label="9K" :value="9" />
@@ -328,9 +323,9 @@
       </el-form>
 
       <template #footer>
-        <el-button @click="closeModal">Cancel</el-button>
+        <el-button @click="closeModal">Batal</el-button>
         <el-button type="warning" @click="handleSubmit" :loading="submitting">
-          {{ isEditMode ? "Update" : "Create" }}
+          {{ isEditMode ? "Perbarui" : "Buat" }}
         </el-button>
       </template>
     </el-dialog>
@@ -474,7 +469,7 @@ const fetchRepairs = async () => {
     const { data, error: apiError } = await $api.repairs.get();
 
     if (apiError) {
-      error.value = "Failed to load repairs";
+      error.value = "Gagal memuat perbaikan";
       return;
     }
 
@@ -599,7 +594,8 @@ const handleSubmit = async () => {
         });
 
       if (apiError) {
-        formError.value = apiError.value.message || "Failed to update repair";
+        formError.value =
+          apiError.value.message || "Gagal memperbarui perbaikan";
         return;
       }
 
@@ -609,7 +605,7 @@ const handleSubmit = async () => {
         repairs.value[index] = data.data as any;
       }
 
-      ElMessage.success("Repair updated successfully");
+      ElMessage.success("Perbaikan berhasil diperbarui");
     } else {
       // Create repair
       const { data, error: apiError } = await $api.repairs.post({
@@ -621,7 +617,7 @@ const handleSubmit = async () => {
       });
 
       if (apiError) {
-        formError.value = apiError.value.message || "Failed to create repair";
+        formError.value = apiError.value.message || "Gagal membuat perbaikan";
         return;
       }
 
@@ -629,7 +625,7 @@ const handleSubmit = async () => {
       if (data.data) {
         repairs.value.unshift(data.data as any);
       }
-      ElMessage.success("Repair created successfully");
+      ElMessage.success("Perbaikan berhasil dibuat");
     }
 
     closeModal();
@@ -644,11 +640,11 @@ const handleSubmit = async () => {
 const confirmDelete = async (repair: Repair) => {
   try {
     await ElMessageBox.confirm(
-      `Are you sure you want to delete this repair record? This action cannot be undone.`,
-      "Delete Repair",
+      `Apakah Anda yakin ingin menghapus catatan perbaikan ini? Tindakan ini tidak dapat dibatalkan.`,
+      "Hapus Perbaikan",
       {
-        confirmButtonText: "Delete",
-        cancelButtonText: "Cancel",
+        confirmButtonText: "Hapus",
+        cancelButtonText: "Batal",
         type: "warning",
         confirmButtonClass: "el-button--danger",
       },
@@ -678,14 +674,14 @@ const handleDelete = async (repair: Repair) => {
 
     if (apiError) {
       loading.close();
-      ElMessage.error(apiError.value.message || "Failed to delete repair");
+      ElMessage.error(apiError.value.message || "Gagal menghapus perbaikan");
       return;
     }
 
     // Remove repair from list
     repairs.value = repairs.value.filter((r) => r.id !== repair.id);
     loading.close();
-    ElMessage.success("Repair deleted successfully");
+    ElMessage.success("Perbaikan berhasil dihapus");
   } catch (err: any) {
     loading.close();
     ElMessage.error(err.message || "An error occurred");

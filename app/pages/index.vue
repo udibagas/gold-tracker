@@ -2,8 +2,10 @@
   <div>
     <!-- Page Header -->
     <div class="mb-6">
-      <h1 class="text-2xl font-bold text-gray-900">Dashboard</h1>
-      <p class="text-gray-600 mt-1">Welcome back, {{ user?.name }}!</p>
+      <h1 class="text-2xl font-bold text-gray-900">Dasbor</h1>
+      <p class="text-gray-600 mt-1">
+        Selamat datang kembali, {{ user?.name }}!
+      </p>
     </div>
 
     <!-- Stats Cards -->
@@ -19,18 +21,18 @@
             <div class="text-2xl font-bold text-gray-900">
               {{ summary.purchases.count }}
             </div>
-            <div class="text-sm text-gray-600">Total Purchases</div>
+            <div class="text-sm text-gray-600">Total Pembelian</div>
           </div>
         </div>
         <div class="mt-3 pt-3 border-t border-gray-100">
           <div class="flex justify-between text-sm">
-            <span class="text-gray-600">Weight:</span>
+            <span class="text-gray-600">Berat:</span>
             <span class="font-semibold"
               >{{ summary.purchases.totalRealWeight.toFixed(1) }}g</span
             >
           </div>
           <div class="flex justify-between text-sm mt-1">
-            <span class="text-gray-600">Value:</span>
+            <span class="text-gray-600">Nilai:</span>
             <span class="font-semibold text-blue-600"
               >${{ summary.purchases.totalPurchasePrice.toFixed(0) }}</span
             >
@@ -49,12 +51,12 @@
             <div class="text-2xl font-bold text-gray-900">
               {{ summary.cleanings.count }}
             </div>
-            <div class="text-sm text-gray-600">Cleanings</div>
+            <div class="text-sm text-gray-600">Pembersihan</div>
           </div>
         </div>
         <div class="mt-3 pt-3 border-t border-gray-100">
           <div class="flex justify-between text-sm">
-            <span class="text-gray-600">Weight Loss:</span>
+            <span class="text-gray-600">Kehilangan Berat:</span>
             <span class="font-semibold text-red-600"
               >{{ summary.cleanings.totalWeightLoss.toFixed(2) }}g</span
             >
@@ -79,12 +81,12 @@
             <div class="text-2xl font-bold text-gray-900">
               {{ summary.repairs.count }}
             </div>
-            <div class="text-sm text-gray-600">Repairs</div>
+            <div class="text-sm text-gray-600">Perbaikan</div>
           </div>
         </div>
         <div class="mt-3 pt-3 border-t border-gray-100">
           <div class="flex justify-between text-sm">
-            <span class="text-gray-600">Weight Change:</span>
+            <span class="text-gray-600">Perubahan Berat:</span>
             <span
               class="font-semibold"
               :class="
@@ -111,12 +113,12 @@
             <div class="text-2xl font-bold text-gray-900">
               {{ summary.meltings.count }}
             </div>
-            <div class="text-sm text-gray-600">Meltings</div>
+            <div class="text-sm text-gray-600">Peleburan</div>
           </div>
         </div>
         <div class="mt-3 pt-3 border-t border-gray-100">
           <div class="flex justify-between text-sm">
-            <span class="text-gray-600">Weight Loss:</span>
+            <span class="text-gray-600">Kehilangan Berat:</span>
             <span class="font-semibold text-red-600"
               >{{ summary.meltings.totalWeightLoss.toFixed(2) }}g</span
             >
@@ -137,8 +139,10 @@
       <el-card shadow="hover" v-loading="loading">
         <template #header>
           <div class="flex items-center justify-between">
-            <span class="font-semibold">Recent Activity (Last 7 Days)</span>
-            <el-tag type="info">{{ recentDailyData.length }} Days</el-tag>
+            <span class="font-semibold"
+              >Aktivitas Terkini (7 Hari Terakhir)</span
+            >
+            <el-tag type="info">{{ recentDailyData.length }} Hari</el-tag>
           </div>
         </template>
         <Line
@@ -148,14 +152,14 @@
         />
         <div v-else-if="!loading" class="text-center py-12 text-gray-500">
           <TrendingUp :size="48" class="mx-auto mb-2 opacity-50" />
-          <p>No recent activity</p>
+          <p>Tidak ada aktivitas terkini</p>
         </div>
       </el-card>
 
       <!-- Operations Distribution -->
       <el-card shadow="hover" v-loading="loading">
         <template #header>
-          <span class="font-semibold">Operations Distribution</span>
+          <span class="font-semibold">Distribusi Operasi</span>
         </template>
         <Doughnut
           v-if="!loading && hasOperations"
@@ -164,7 +168,7 @@
         />
         <div v-else-if="!loading" class="text-center py-12 text-gray-500">
           <PieChart :size="48" class="mx-auto mb-2 opacity-50" />
-          <p>No operations recorded yet</p>
+          <p>Belum ada operasi yang tercatat</p>
         </div>
       </el-card>
     </div>
@@ -174,7 +178,7 @@
       <!-- Weight Overview -->
       <el-card shadow="hover" v-loading="loading">
         <template #header>
-          <span class="font-semibold">Weight Flow Overview</span>
+          <span class="font-semibold">Ringkasan Alur Berat</span>
         </template>
         <Bar
           v-if="!loading && hasOperations"
@@ -183,14 +187,14 @@
         />
         <div v-else-if="!loading" class="text-center py-12 text-gray-500">
           <Weight :size="48" class="mx-auto mb-2 opacity-50" />
-          <p>No weight data available</p>
+          <p>Tidak ada data berat tersedia</p>
         </div>
       </el-card>
 
       <!-- Gold Quality Distribution -->
       <el-card shadow="hover" v-loading="loading">
         <template #header>
-          <span class="font-semibold">Gold Quality Distribution</span>
+          <span class="font-semibold">Distribusi Kualitas Emas</span>
         </template>
         <Bar
           v-if="!loading && hasOperations"
@@ -199,7 +203,7 @@
         />
         <div v-else-if="!loading" class="text-center py-12 text-gray-500">
           <Award :size="48" class="mx-auto mb-2 opacity-50" />
-          <p>No carat data available</p>
+          <p>Tidak ada data karat tersedia</p>
         </div>
       </el-card>
     </div>
@@ -210,14 +214,14 @@
       <el-card shadow="hover" v-loading="loading">
         <template #header>
           <div class="flex items-center justify-between">
-            <span class="font-semibold">Recent Purchases</span>
+            <span class="font-semibold">Pembelian Terkini</span>
             <el-button
               type="primary"
               text
               size="small"
               @click="navigateTo('/purchases')"
             >
-              View All
+              Lihat Semua
             </el-button>
           </div>
         </template>
@@ -247,7 +251,7 @@
           </div>
         </div>
         <div v-else class="text-center py-8 text-gray-500">
-          No recent purchases
+          Tidak ada pembelian terkini
         </div>
       </el-card>
 
@@ -255,14 +259,14 @@
       <el-card shadow="hover" v-loading="loading">
         <template #header>
           <div class="flex items-center justify-between">
-            <span class="font-semibold">Recent Cleanings</span>
+            <span class="font-semibold">Pembersihan Terkini</span>
             <el-button
               type="primary"
               text
               size="small"
               @click="navigateTo('/cleanings')"
             >
-              View All
+              Lihat Semua
             </el-button>
           </div>
         </template>
@@ -296,7 +300,7 @@
           </div>
         </div>
         <div v-else class="text-center py-8 text-gray-500">
-          No recent cleanings
+          Tidak ada pembersihan terkini
         </div>
       </el-card>
     </div>

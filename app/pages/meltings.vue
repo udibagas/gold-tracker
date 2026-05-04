@@ -3,14 +3,14 @@
     <!-- Page Header -->
     <div class="mb-6 flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-bold text-gray-900">Gold Melting</h1>
-        <p class="text-gray-600 mt-1">Track gold melting operations</p>
+        <h1 class="text-2xl font-bold text-gray-900">Peleburan Emas</h1>
+        <p class="text-gray-600 mt-1">Lacak operasi peleburan emas</p>
       </div>
       <el-button type="danger" @click="openCreateModal">
         <template #icon>
           <Flame :size="18" />
         </template>
-        Add Melting
+        Tambah Peleburan
       </el-button>
     </div>
 
@@ -25,7 +25,7 @@
       class="mb-4"
     >
       <el-button type="primary" size="small" @click="fetchMeltings">
-        Retry
+        Coba Lagi
       </el-button>
     </el-alert>
 
@@ -42,7 +42,7 @@
             <div class="text-2xl font-bold text-gray-900">
               {{ meltings.length }}
             </div>
-            <div class="text-sm text-gray-600">Total Meltings</div>
+            <div class="text-sm text-gray-600">Total Peleburan</div>
           </div>
         </div>
       </el-card>
@@ -58,7 +58,7 @@
             <div class="text-2xl font-bold text-gray-900">
               {{ totalWeightBefore.toFixed(2) }}g
             </div>
-            <div class="text-sm text-gray-600">Total Input Weight</div>
+            <div class="text-sm text-gray-600">Total Berat Input</div>
           </div>
         </div>
       </el-card>
@@ -74,7 +74,7 @@
             <div class="text-2xl font-bold text-gray-900">
               {{ totalWeightAfter.toFixed(2) }}g
             </div>
-            <div class="text-sm text-gray-600">Total Output Weight</div>
+            <div class="text-sm text-gray-600">Total Berat Output</div>
           </div>
         </div>
       </el-card>
@@ -91,7 +91,7 @@
               {{ totalWeightLoss.toFixed(2) }}g
             </div>
             <div class="text-sm text-gray-600">
-              Total Loss ({{ averageLossPercentage }}%)
+              Total Kehilangan ({{ averageLossPercentage }}%)
             </div>
           </div>
         </div>
@@ -102,19 +102,19 @@
     <el-card shadow="hover">
       <template #header>
         <div class="flex items-center justify-between">
-          <span class="font-semibold">All Meltings</span>
+          <span class="font-semibold">Semua Peleburan</span>
           <el-tag>{{ meltings.length }} Total</el-tag>
         </div>
       </template>
 
       <el-table :data="meltings" v-loading="loading" style="width: 100%" stripe>
-        <el-table-column label="Input Weight" width="140" align="right">
+        <el-table-column label="Berat Input" width="140" align="right">
           <template #default="{ row }">
             <span class="font-semibold">{{ row.weightBefore }}g</span>
           </template>
         </el-table-column>
 
-        <el-table-column label="Output Weight" width="140" align="right">
+        <el-table-column label="Berat Output" width="140" align="right">
           <template #default="{ row }">
             <span class="font-semibold text-amber-600"
               >{{ row.weightAfter }}g</span
@@ -122,7 +122,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Weight Loss" width="140" align="right">
+        <el-table-column label="Kehilangan Berat" width="140" align="right">
           <template #default="{ row }">
             <span class="text-red-600 font-semibold">
               {{ (row.weightBefore - row.weightAfter).toFixed(2) }}g
@@ -130,7 +130,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Loss %" width="110" align="center">
+        <el-table-column label="Kehilangan %" width="110" align="center">
           <template #default="{ row }">
             <el-tag :type="getLossPercentageType(row)" size="small">
               {{ calculateLossPercentage(row) }}%
@@ -138,7 +138,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Yield %" width="110" align="center">
+        <el-table-column label="Hasil %" width="110" align="center">
           <template #default="{ row }">
             <el-tag type="success" size="small">
               {{ calculateYieldPercentage(row) }}%
@@ -146,7 +146,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Carat" width="100" align="center">
+        <el-table-column label="Karat" width="100" align="center">
           <template #default="{ row }">
             <el-tag :type="getCaratTagType(row.carat)" size="small">
               {{ row.carat }}K
@@ -154,7 +154,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="User" width="180">
+        <el-table-column label="Pengguna" width="180">
           <template #default="{ row }">
             <div class="flex items-center gap-2">
               <el-avatar
@@ -168,25 +168,20 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Date" width="150">
+        <el-table-column label="Tanggal" width="150">
           <template #default="{ row }">
             {{ formatDate(row.createdAt) }}
           </template>
         </el-table-column>
 
-        <el-table-column
-          label="Actions"
-          width="150"
-          align="center"
-          fixed="right"
-        >
+        <el-table-column label="Aksi" width="150" align="center" fixed="right">
           <template #default="{ row }">
             <el-button
               type="danger"
               size="small"
               circle
               @click="openEditModal(row)"
-              title="Edit"
+              title="Ubah"
             >
               <Edit2 :size="16" />
             </el-button>
@@ -196,7 +191,7 @@
               circle
               plain
               @click="confirmDelete(row)"
-              title="Delete"
+              title="Hapus"
             >
               <Trash2 :size="16" />
             </el-button>
@@ -208,7 +203,7 @@
     <!-- Create/Edit Dialog -->
     <el-dialog
       v-model="showModal"
-      :title="isEditMode ? 'Edit Melting' : 'Create Melting'"
+      :title="isEditMode ? 'Ubah Peleburan' : 'Buat Peleburan'"
       width="600px"
       :close-on-click-modal="false"
     >
@@ -223,10 +218,10 @@
       />
 
       <el-form :model="form" label-width="140px" label-position="left">
-        <el-form-item label="User" required>
+        <el-form-item label="Pengguna" required>
           <el-select
             v-model="form.userId"
-            placeholder="Select user"
+            placeholder="Pilih pengguna"
             style="width: 100%"
             filterable
           >
@@ -241,32 +236,32 @@
 
         <el-divider />
 
-        <el-form-item label="Input Weight (g)" required>
+        <el-form-item label="Berat Input (g)" required>
           <el-input-number
             v-model="form.weightBefore"
             :min="0"
             :step="0.01"
             :precision="2"
             style="width: 100%"
-            placeholder="Weight before melting"
+            placeholder="Berat sebelum peleburan"
           />
         </el-form-item>
 
-        <el-form-item label="Output Weight (g)" required>
+        <el-form-item label="Berat Output (g)" required>
           <el-input-number
             v-model="form.weightAfter"
             :min="0"
             :step="0.01"
             :precision="2"
             style="width: 100%"
-            placeholder="Weight after melting"
+            placeholder="Berat setelah peleburan"
           />
         </el-form-item>
 
-        <el-form-item label="Carat" required>
+        <el-form-item label="Karat" required>
           <el-select
             v-model="form.carat"
-            placeholder="Select carat"
+            placeholder="Pilih karat"
             style="width: 100%"
           >
             <el-option label="9K" :value="9" />
@@ -298,9 +293,9 @@
       </el-form>
 
       <template #footer>
-        <el-button @click="closeModal">Cancel</el-button>
+        <el-button @click="closeModal">Batal</el-button>
         <el-button type="danger" @click="handleSubmit" :loading="submitting">
-          {{ isEditMode ? "Update" : "Create" }}
+          {{ isEditMode ? "Perbarui" : "Buat" }}
         </el-button>
       </template>
     </el-dialog>
@@ -424,7 +419,7 @@ const fetchMeltings = async () => {
     const { data, error: apiError } = await $api.meltings.get();
 
     if (apiError) {
-      error.value = "Failed to load meltings";
+      error.value = "Gagal memuat peleburan";
       return;
     }
 
@@ -492,19 +487,19 @@ const closeModal = () => {
 // Validate form
 const validateForm = () => {
   if (!form.value.userId) {
-    formError.value = "Please select a user";
+    formError.value = "Harap pilih pengguna";
     return false;
   }
   if (form.value.weightBefore <= 0) {
-    formError.value = "Input weight must be greater than 0";
+    formError.value = "Berat input harus lebih dari 0";
     return false;
   }
   if (form.value.weightAfter < 0) {
-    formError.value = "Output weight cannot be negative";
+    formError.value = "Berat output tidak boleh negatif";
     return false;
   }
   if (form.value.weightAfter > form.value.weightBefore) {
-    formError.value = "Output weight cannot be greater than input weight";
+    formError.value = "Berat output tidak boleh lebih besar dari berat input";
     return false;
   }
   return true;
@@ -534,7 +529,8 @@ const handleSubmit = async () => {
         });
 
       if (apiError) {
-        formError.value = apiError.value.message || "Failed to update melting";
+        formError.value =
+          apiError.value.message || "Gagal memperbarui peleburan";
         return;
       }
 
@@ -544,7 +540,7 @@ const handleSubmit = async () => {
         meltings.value[index] = data.data as any;
       }
 
-      ElMessage.success("Melting updated successfully");
+      ElMessage.success("Peleburan berhasil diperbarui");
     } else {
       // Create melting
       const { data, error: apiError } = await $api.meltings.post({
@@ -555,7 +551,7 @@ const handleSubmit = async () => {
       });
 
       if (apiError) {
-        formError.value = apiError.value.message || "Failed to create melting";
+        formError.value = apiError.value.message || "Gagal membuat peleburan";
         return;
       }
 
@@ -563,7 +559,7 @@ const handleSubmit = async () => {
       if (data.data) {
         meltings.value.unshift(data.data as any);
       }
-      ElMessage.success("Melting created successfully");
+      ElMessage.success("Peleburan berhasil dibuat");
     }
 
     closeModal();
@@ -578,11 +574,11 @@ const handleSubmit = async () => {
 const confirmDelete = async (melting: Melting) => {
   try {
     await ElMessageBox.confirm(
-      `Are you sure you want to delete this melting record? This action cannot be undone.`,
-      "Delete Melting",
+      `Apakah Anda yakin ingin menghapus catatan peleburan ini? Tindakan ini tidak dapat dibatalkan.`,
+      "Hapus Peleburan",
       {
-        confirmButtonText: "Delete",
-        cancelButtonText: "Cancel",
+        confirmButtonText: "Hapus",
+        cancelButtonText: "Batal",
         type: "warning",
         confirmButtonClass: "el-button--danger",
       },
@@ -612,14 +608,14 @@ const handleDelete = async (melting: Melting) => {
 
     if (apiError) {
       loading.close();
-      ElMessage.error(apiError.value.message || "Failed to delete melting");
+      ElMessage.error(apiError.value.message || "Gagal menghapus peleburan");
       return;
     }
 
     // Remove melting from list
     meltings.value = meltings.value.filter((m) => m.id !== melting.id);
     loading.close();
-    ElMessage.success("Melting deleted successfully");
+    ElMessage.success("Peleburan berhasil dihapus");
   } catch (err: any) {
     loading.close();
     ElMessage.error(err.message || "An error occurred");
