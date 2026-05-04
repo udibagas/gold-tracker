@@ -9,12 +9,89 @@ generator client {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        Int        @id @default(autoincrement())
   name      String
-  email     String   @unique
+  email     String     @unique
   password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  purchases Purchase[]
+  cleanings Cleaning[]
+  repairs   Repair[]
+  meltings  Melting[]
+}
+
+model GoldCategory {
+  id        Int        @id @default(autoincrement())
+  name      String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  purchases Purchase[]
+  cleanings Cleaning[]
+  repairs   Repair[]
+}
+
+model Purchase {
+  id Int @id @default(autoincrement())
+
+  receiptWeight Float
+  realWeight    Float
+  carat         Int // 9, 14, 18, 22, 24
+  recieptPrice  Float
+  purchasePrice Float
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  userId     Int
+  categoryId Int
+
+  user     User         @relation(fields: [userId], references: [id])
+  category GoldCategory @relation(fields: [categoryId], references: [id])
+}
+
+model Cleaning {
+  id Int @id @default(autoincrement())
+
+  weightBefore Float
+  weightAfter  Float
+  carat        Int // 9, 14, 18, 22, 24
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  userId     Int
+  categoryId Int
+
+  user     User         @relation(fields: [userId], references: [id])
+  category GoldCategory @relation(fields: [categoryId], references: [id])
+}
+
+model Repair {
+  id Int @id @default(autoincrement())
+
+  weightBefore Float
+  weightAfter  Float
+  carat        Int // 9, 14, 18, 22, 24
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  userId     Int
+  categoryId Int
+
+  user     User         @relation(fields: [userId], references: [id])
+  category GoldCategory @relation(fields: [categoryId], references: [id])
+}
+
+model Melting {
+  id Int @id @default(autoincrement())
+
+  weightBefore Float
+  weightAfter  Float
+  carat        Int // 9, 14, 18, 22, 24
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
 }
 
 datasource db {
