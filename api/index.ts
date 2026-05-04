@@ -4,6 +4,9 @@ import users from "./routes/users";
 import categories from "./routes/categories";
 import { purchases } from "./routes/purchases";
 import { cleanings } from "./routes/cleanings";
+import { repairs } from "./routes/repairs";
+import { meltings } from "./routes/meltings";
+import { reports } from "./routes/reports";
 
 export default () =>
   new Elysia()
@@ -12,4 +15,7 @@ export default () =>
     .use(users)
     .use(categories)
     .use(purchases)
-    .use(cleanings);
+    .use(cleanings)
+    .use(repairs)
+    .use(meltings)
+    .use(reports);

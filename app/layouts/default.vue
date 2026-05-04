@@ -141,12 +141,12 @@ const menuItems = [
   },
   {
     label: "Repair",
-    path: "/repair",
+    path: "/repairs",
     icon: Wrench,
   },
   {
     label: "Melting",
-    path: "/melting",
+    path: "/meltings",
     icon: Flame,
   },
   {

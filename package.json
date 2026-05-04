@@ -12,6 +12,8 @@
     "db:seed:categories": "bun run prisma/seed-categories.ts",
     "db:seed:purchases": "bun run prisma/seed-purchases.ts",
     "db:seed:cleanings": "bun run prisma/seed-cleanings.ts",
+    "db:seed:repairs": "bun run prisma/seed-repairs.ts",
+    "db:seed:meltings": "bun run prisma/seed-meltings.ts",
     "db:migrate": "bun --bun run prisma migrate dev",
     "db:reset": "bun --bun run prisma migrate reset --force"
   },
