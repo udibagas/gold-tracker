@@ -131,12 +131,12 @@ const menuItems = [
   },
   {
     label: "Purchase",
-    path: "/purchase",
+    path: "/purchases",
     icon: ShoppingCart,
   },
   {
     label: "Cleaning",
-    path: "/cleaning",
+    path: "/cleanings",
     icon: Sparkles,
   },
   {

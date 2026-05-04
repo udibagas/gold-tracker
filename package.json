@@ -10,6 +10,8 @@
     "postinstall": "nuxt prepare",
     "db:seed": "bun run prisma/seed.ts",
     "db:seed:categories": "bun run prisma/seed-categories.ts",
+    "db:seed:purchases": "bun run prisma/seed-purchases.ts",
+    "db:seed:cleanings": "bun run prisma/seed-cleanings.ts",
     "db:migrate": "bun --bun run prisma migrate dev",
     "db:reset": "bun --bun run prisma migrate reset --force"
   },
