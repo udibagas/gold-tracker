@@ -8,6 +8,10 @@ generator client {
   output   = "../generated/prisma"
 }
 
+datasource db {
+  provider = "postgresql"
+}
+
 model User {
   id        Int        @id @default(autoincrement())
   name      String
@@ -92,8 +96,4 @@ model Melting {
 
   userId Int
   user   User @relation(fields: [userId], references: [id])
-}
-
-datasource db {
-  provider = "postgresql"
 }
